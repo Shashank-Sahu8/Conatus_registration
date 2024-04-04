@@ -8,7 +8,7 @@ List<String>scholar=['Days Scholar','Hosteller'];
 
 bool isValidEmail(String email) {
   // Regular expression pattern for validating an email address
-  final RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  final RegExp emailRegex =RegExp(r'^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
 
   return emailRegex.hasMatch(email);
 }
@@ -34,7 +34,7 @@ bool isValidPhoneNumber(String phoneNumber) {
 
 bool isValidStudentNumber(String studentNumber) {
   // Regular expression pattern for validating a 7-digit numeric student number
-  final RegExp studentNumberRegex = RegExp(r'^[0-9]{7}$');
+  final RegExp studentNumberRegex = RegExp(r'^\d{7}(d)?$');
 
   return studentNumberRegex.hasMatch(studentNumber);
 }

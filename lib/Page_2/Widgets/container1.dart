@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:webapp/Page_3/ThankYou_page.dart';
 import 'package:webapp/Utils/Colour.dart';
 import 'package:webapp/Utils/constants.dart';
 
@@ -23,6 +24,7 @@ class _container1State extends State<container1> {
   String scholarc ="empty";
   ScrollController _scrollController = ScrollController();
   final formfield = GlobalKey<FormState>();
+  static Color valcolor=Colors.black;
 
 
   @override
@@ -56,20 +58,7 @@ class _container1State extends State<container1> {
                   child: similarform(),
                 ),
               ),
-              Container(
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(onPressed: (){setState(() {
-                        namec.clear();branchc="empty";yearc="empty";scholarc="empty";stdc.clear();mailc.clear();phonec.clear();
-                      });}, child: Text("Reset")),
-                      ElevatedButton(onPressed: (){}, child: Text("Submit"))
-                    ],
-                  ),
-                ),
-              )
+              validate()
             ],
           ),
         ),
@@ -103,21 +92,8 @@ class _container1State extends State<container1> {
                         child: similarform(),
                       ),
                     ),
-                
-                    Container(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ElevatedButton(onPressed: (){setState(() {
-                              namec.clear();branchc="empty";yearc="empty";scholarc="empty";stdc.clear();mailc.clear();phonec.clear();
-                            });}, child: Text("Reset")),
-                            ElevatedButton(onPressed: (){}, child: Text("Submit"))
-                          ],
-                        ),
-                      ),
-                    )
+
+                    validate()
                   ],
                 ),
               ),
@@ -135,7 +111,10 @@ class _container1State extends State<container1> {
     return Container(
       color: Colors.white,
       child: Form(
-        key: formfield,
+
+        key: formfield,onPopInvoked: (didPop) {
+          print("some erroe");
+        },
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: SingleChildScrollView(
@@ -148,7 +127,7 @@ class _container1State extends State<container1> {
                 Text(
                   "Name :",
                   style: GoogleFonts.inter(
-                      color: Colors.black,
+                      color: valcolor,
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
                 ),
@@ -175,9 +154,10 @@ class _container1State extends State<container1> {
                           border: InputBorder.none),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Enter';
+                          setState(() {
+                            valcolor=Colors.red;
+                          });
                         }
-                        return null;
                       },
                     ),
                   ),
@@ -191,7 +171,7 @@ class _container1State extends State<container1> {
                 Text(
                   "Select Branch :",
                   style: GoogleFonts.inter(
-                      color: Colors.black,
+                      color: valcolor,
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
                 ),
@@ -230,7 +210,7 @@ class _container1State extends State<container1> {
                 Text(
                   "Select Year :",
                   style: GoogleFonts.inter(
-                      color: Colors.black,
+                      color: valcolor,
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
                 ),
@@ -269,7 +249,7 @@ class _container1State extends State<container1> {
                 Text(
                   "Student Number :",
                   style: GoogleFonts.inter(
-                      color: Colors.black,
+                      color: valcolor,
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
                 ),
@@ -286,7 +266,7 @@ class _container1State extends State<container1> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: TextFormField(
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       controller: stdc,
                       decoration: const InputDecoration(
                           hintText: "Student Number",
@@ -296,9 +276,10 @@ class _container1State extends State<container1> {
                           border: InputBorder.none),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Enter';
+                          setState(() {
+                            valcolor=Colors.red;
+                          });
                         }
-                        return null;
                       },
                     ),
                   ),
@@ -313,7 +294,7 @@ class _container1State extends State<container1> {
                 Text(
                   "Email :",
                   style: GoogleFonts.inter(
-                      color: Colors.black,
+                      color: valcolor,
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
                 ),
@@ -340,9 +321,10 @@ class _container1State extends State<container1> {
                           border: InputBorder.none),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Enter';
+                          setState(() {
+                            valcolor=Colors.red;
+                          });
                         }
-                        return null;
                       },
                     ),
                   ),
@@ -357,7 +339,7 @@ class _container1State extends State<container1> {
                 Text(
                   "Phone Number :",
                   style: GoogleFonts.inter(
-                      color: Colors.black,
+                      color: valcolor,
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
                 ),
@@ -384,9 +366,10 @@ class _container1State extends State<container1> {
                           border: InputBorder.none),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Enter';
+                          setState(() {
+                            valcolor=Colors.red;
+                          });
                         }
-                        return null;
                       },
                     ),
                   ),
@@ -400,7 +383,7 @@ class _container1State extends State<container1> {
                 Text(
                   "Scholar Type :",
                   style: GoogleFonts.inter(
-                      color: Colors.black,
+                      color: valcolor,
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
                 ),
@@ -442,6 +425,55 @@ class _container1State extends State<container1> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget validate()
+
+  {
+    return  Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ElevatedButton(onPressed: (){setState(() {
+              namec.clear();branchc="empty";yearc="empty";scholarc="empty";stdc.clear();mailc.clear();phonec.clear();
+            });}, child: Text("Reset")),
+            ElevatedButton(onPressed: (){
+              if(formfield.currentState!.validate() && isValidEmail(mailc.text) && isValidName(namec.text) && isValidPhoneNumber(phonec.text) && isValidStudentNumber(stdc.text) && branchc!="empty" && yearc!="empty" && scholarc!="empty" && mailc.text.substring(mailc.text.length - 12)=="@akgec.ac.in" && (mailc.text.contains(stdc.text)||( mailc.text.contains(stdc.text.substring(0,stdc.text.length-1))&&stdc.text.length==8))  && phonec.text.length==10 )
+              {
+                print(namec.text + mailc.text + namec.text + phonec.text + stdc.text );
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>thanks()));
+              }
+              else if(phonec.text.length!=10)
+              {
+                print ("incorrect phone number");
+              }
+              else if(branchc=="empty" || yearc=="empty" || scholarc=="empty")
+              {
+                setState(() {
+                  valcolor=Colors.red;
+                });
+                print('some field is missing');
+              }
+              else if(mailc.text.substring(mailc.text.length - 12)!="@akgec.ac.in")
+              {
+                print("use your college mail id");
+              }
+              else if(mailc.text.contains(stdc.text))
+              {
+                print("student number and mail  matching");
+              }
+              else
+              {
+                print('error');
+              }
+
+            }, child: Text("Submit"))
+          ],
         ),
       ),
     );
