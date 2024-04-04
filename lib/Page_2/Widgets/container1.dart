@@ -446,7 +446,7 @@ class _container1State extends State<container1> {
               if(formfield.currentState!.validate() && isValidEmail(mailc.text) && isValidName(namec.text) && isValidPhoneNumber(phonec.text) && isValidStudentNumber(stdc.text) && branchc!="empty" && yearc!="empty" && scholarc!="empty" && mailc.text.substring(mailc.text.length - 12)=="@akgec.ac.in" && (mailc.text.contains(stdc.text)||( mailc.text.contains(stdc.text.substring(0,stdc.text.length-1))&&stdc.text.length==8))  && phonec.text.length==10 )
               {
                 print(namec.text + mailc.text + namec.text + phonec.text + stdc.text );
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>thanks()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>thanks()));
               }
               else if(phonec.text.length!=10)
               {
