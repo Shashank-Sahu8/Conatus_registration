@@ -526,9 +526,11 @@ class _container1State extends State<container1> {
                 User user=User(contactNumber: phonec.text,currentYear: yearc.toString(),email: mailc.text,gender:gender.toString(),studentId: stdc.text,name: namec.text,residency: scholarc.toString(),token: _token.toString() );
                 if(_token=='empty')
                   {
-                    registerUserWithApiEndpoint(user);
                     print(namec.text + mailc.text + namec.text + phonec.text + stdc.text );
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>thanks()));
+                    if(registerUserWithApiEndpoint(user)==true)
+                      {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>thanks()));
+                      }
                   }
               }
               else
@@ -536,7 +538,6 @@ class _container1State extends State<container1> {
                 print('valadition error');
               }
             }, child: Text("Submit")),
-            SizedBox(width: 20,)
           ],
         ),
       ),
