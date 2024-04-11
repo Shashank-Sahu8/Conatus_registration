@@ -1,7 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
 import 'package:webapp/Page_1/Event_Details_1.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    bool ready =
+        await GRecaptchaV3.ready("6Lev2bEpAAAAANz_PcRb4GnPEIvT-v3BbniEEvxz", showBadge: false);
+  }
   runApp(const MyApp());
 }
 

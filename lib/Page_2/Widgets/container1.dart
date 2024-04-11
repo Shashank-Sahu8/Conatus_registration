@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:webapp/Page_2/Services/api_call.dart';
 import 'package:webapp/Page_3/ThankYou_page.dart';
 import 'package:webapp/Utils/Colour.dart';
 import 'package:webapp/Utils/constants.dart';
+import '../../model/model1.dart';
 
 class container1 extends StatefulWidget {
   const container1({super.key});
@@ -15,6 +18,7 @@ class container1 extends StatefulWidget {
 }
 
 class _container1State extends State<container1> {
+    String _token = 'empty';
   final namec =TextEditingController();
   String branchc="empty";
   final stdc =TextEditingController();
@@ -22,10 +26,19 @@ class _container1State extends State<container1> {
   final mailc =TextEditingController();
   final phonec =TextEditingController();
   String scholarc ="empty";
+  String genderc="Gender";
   ScrollController _scrollController = ScrollController();
   final formfield = GlobalKey<FormState>();
   static Color valcolor=Colors.black;
 
+
+    Future<void> getToken() async {
+      String token = await GRecaptchaV3.execute('submit') ?? 'null returned';
+      print(token);
+      setState(() {
+        _token = token;
+      });
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +71,7 @@ class _container1State extends State<container1> {
                   child: similarform(),
                 ),
               ),
-              validate()
+              form_val()
             ],
           ),
         ),
@@ -93,7 +106,7 @@ class _container1State extends State<container1> {
                       ),
                     ),
 
-                    validate()
+                    form_val()
                   ],
                 ),
               ),
@@ -113,7 +126,7 @@ class _container1State extends State<container1> {
       child: Form(
 
         key: formfield,onPopInvoked: (didPop) {
-          print("some erroe");
+          print("some error");
         },
         child: Padding(
           padding: const EdgeInsets.all(18.0),
@@ -154,10 +167,13 @@ class _container1State extends State<container1> {
                           border: InputBorder.none),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          setState(() {
-                            valcolor=Colors.red;
-                          });
+                          return "Enert Name";
                         }
+                        else if(isValidName(value.toString())==false)
+                          {
+                            return "Invalid Name";
+                          }
+                        return null;
                       },
                     ),
                   ),
@@ -276,10 +292,13 @@ class _container1State extends State<container1> {
                           border: InputBorder.none),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          setState(() {
-                            valcolor=Colors.red;
-                          });
+                          return "Enter Student Number";
                         }
+                        else if(isValidStudentNumber(value)==false)
+                          {
+                            return "Incorrect Student Number";
+                          }
+                        return null;
                       },
                     ),
                   ),
@@ -320,11 +339,15 @@ class _container1State extends State<container1> {
                           focusColor: Color(0xff8F57FF),
                           border: InputBorder.none),
                       validator: (value) {
-                        if (value!.isEmpty) {
-                          setState(() {
-                            valcolor=Colors.red;
-                          });
+                        if (value!.isEmpty )
+                        {
+                          return "Enter email";
                         }
+                        else if(isValidEmail(value.toString())==false)
+                          {
+                            return "Incorrect email";
+                          }
+                        return null;
                       },
                     ),
                   ),
@@ -366,10 +389,13 @@ class _container1State extends State<container1> {
                           border: InputBorder.none),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          setState(() {
-                            valcolor=Colors.red;
-                          });
+                          return "Enter phone number";
                         }
+                        else if(isValidPhoneNumber(value.toString())==false)
+                        {
+                          return "Incorrect number";
+                        }
+                        return null;
                       },
                     ),
                   ),
@@ -419,9 +445,44 @@ class _container1State extends State<container1> {
                   height: 8,
                 ),
 
+                Text(
+                  "Gender :",
+                  style: GoogleFonts.inter(
+                      color: valcolor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Container(
+                  height: 50,
+                  width: w!/1.5,
+                  decoration: BoxDecoration(
+                      border:
+                      Border.all(color: Colors.grey, width: 1.7),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: DropdownButton(
+                    underline: Container(),
+                    isExpanded: true,
+                    hint: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(genderc=="empty"?"Select":genderc),
+                    ),
+                    onChanged: (newValue){setState(() {
+                      genderc=newValue.toString();
+                    });}, items: gender.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),),
+                ),
 
-
-
+                const SizedBox
+                  (
+                  height: 8,
+                ),
               ],
             ),
           ),
@@ -430,8 +491,7 @@ class _container1State extends State<container1> {
     );
   }
 
-  Widget validate()
-
+  Widget form_val()
   {
     return  Container(
       color: Colors.white,
@@ -439,40 +499,44 @@ class _container1State extends State<container1> {
         padding: const EdgeInsets.all(8.0),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ElevatedButton(onPressed: (){setState(() {
-              namec.clear();branchc="empty";yearc="empty";scholarc="empty";stdc.clear();mailc.clear();phonec.clear();
-            });}, child: Text("Reset")),
+
+            //RESET BUTTON
+
             ElevatedButton(onPressed: (){
-              if(formfield.currentState!.validate() && isValidEmail(mailc.text) && isValidName(namec.text) && isValidPhoneNumber(phonec.text) && isValidStudentNumber(stdc.text) && branchc!="empty" && yearc!="empty" && scholarc!="empty" && mailc.text.substring(mailc.text.length - 12)=="@akgec.ac.in" && (mailc.text.contains(stdc.text)||( mailc.text.contains(stdc.text.substring(0,stdc.text.length-1))&&stdc.text.length==8))  && phonec.text.length==10 )
+              namec.clear();stdc.clear();mailc.clear();phonec.clear();
+              setState(() {
+                branchc="empty";yearc="empty";scholarc="empty";genderc="empty";
+              });
+            }, child: Text("Reset")),
+
+            //SUBMIT BUTTON
+
+            ElevatedButton(onPressed: (){
+              if(formfield.currentState!.validate()&&((mailc.text.contains(stdc.text)==false&&stdc.text.length==7)||( mailc.text.contains(stdc.text.substring(0,stdc.text.length-1))==false && stdc.text.length==8 )))
+                {
+                  print("student number and email not matching");
+                }
+              else if(formfield.currentState!.validate()&&(branchc=="empty" || yearc=="empty" || scholarc=="empty"))
               {
-                print(namec.text + mailc.text + namec.text + phonec.text + stdc.text );
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>thanks()));
+                print('Some field is missing');
               }
-              else if(phonec.text.length!=10)
+              else if(formfield.currentState!.validate())
               {
-                print ("incorrect phone number");
-              }
-              else if(branchc=="empty" || yearc=="empty" || scholarc=="empty")
-              {
-                setState(() {
-                  valcolor=Colors.red;
-                });
-                print('some field is missing');
-              }
-              else if(mailc.text.substring(mailc.text.length - 12)!="@akgec.ac.in")
-              {
-                print("use your college mail id");
-              }
-              else if(mailc.text.contains(stdc.text))
-              {
-                print("student number and mail  matching");
+                getToken();
+                User user=User(contactNumber: phonec.text,currentYear: yearc.toString(),email: mailc.text,gender:gender.toString(),studentId: stdc.text,name: namec.text,residency: scholarc.toString(),token: _token.toString() );
+                if(_token=='empty')
+                  {
+                    registerUserWithApiEndpoint(user);
+                    print(namec.text + mailc.text + namec.text + phonec.text + stdc.text );
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>thanks()));
+                  }
               }
               else
               {
-                print('error');
+                print('valadition error');
               }
-
-            }, child: Text("Submit"))
+            }, child: Text("Submit")),
+            SizedBox(width: 20,)
           ],
         ),
       ),
