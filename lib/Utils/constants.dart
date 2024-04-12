@@ -2,9 +2,9 @@ double?h;
 double?w;
 
 List<String>branch=['CSE','CSE-AIML','CSE-DS','CS','IT','CSIT','CS-Hindi','ECE','ME','EN','CIVIL'];
-List<String>year=['First Year','Second Year'];
-List<String>scholar=['Days Scholar','Hosteller'];
-List<String>gender=['Male','Female'];
+List<String>year=["1","2"];
+List<String>scholar=['DAYSCHOLAR','HOSTLER'];
+List<String>gender=['MALE','FEMALE'];
 
 
 bool isValidEmail(String email) {

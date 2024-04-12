@@ -1,12 +1,12 @@
 class User {
   final String name;
   final String email;
-  final String contactNumber;
+  final int contactNumber;
   final String gender;
   final String studentId;
   final String residency;
-  final String currentYear;
   final String branch;
+  final int currentYear;
   final String token;
 
   User({
@@ -16,8 +16,8 @@ class User {
     required this.gender,
     required this.studentId,
     required this.residency,
-    required this.currentYear,
     required this.branch,
+    required this.currentYear,
     required this.token
   });
 
@@ -28,9 +28,9 @@ class User {
       'contactNumber': contactNumber,
       'gender': gender,
       'studentId': studentId,
-      'residency': residency,
-      'currentYear': currentYear,
+      'residence': residency,
       'branch':branch,
+      'currentYear': currentYear,
       'token':token
     };
   }

@@ -4,11 +4,12 @@ import 'package:flutter/widgets.dart';
 import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:webapp/Page_2/Services/api_call.dart';
-import 'package:webapp/Page_3/ThankYou_page.dart';
+import 'package:webapp/Services/api_call.dart';
 import 'package:webapp/Utils/Colour.dart';
 import 'package:webapp/Utils/constants.dart';
-import '../../model/model1.dart';
+import 'package:webapp/model/model1.dart';
+import 'package:webapp/screens/Page_3/ThankYou_page.dart';
+
 
 class container1 extends StatefulWidget {
   const container1({super.key});
@@ -33,12 +34,12 @@ class _container1State extends State<container1> {
 
 
 
-    Future<void> getToken() async {
-      String token = await GRecaptchaV3.execute('submit') ?? 'null returned';
-      setState(() {
-        _token = token.toString();
-      });
-    }
+  Future<void> getToken() async {
+    String token = await GRecaptchaV3.execute('submit') ?? 'null returned';
+    setState(() {
+      _token = token.toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,8 +127,8 @@ class _container1State extends State<container1> {
       child: Form(
 
         key: formfield,onPopInvoked: (didPop) {
-          print("some error");
-        },
+        print("some error");
+      },
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: SingleChildScrollView(
@@ -170,9 +171,9 @@ class _container1State extends State<container1> {
                           return "Enert Name";
                         }
                         else if(isValidName(value.toString())==false)
-                          {
-                            return "Invalid Name";
-                          }
+                        {
+                          return "Invalid Name";
+                        }
                         return null;
                       },
                     ),
@@ -208,9 +209,9 @@ class _container1State extends State<container1> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(branchc=="empty"?"Select Branch":branchc),
                     ),
-                      onChanged: (newValue){setState(() {
-                        branchc=newValue.toString();
-                      });}, items: branch.map<DropdownMenuItem<String>>((String value) {
+                    onChanged: (newValue){setState(() {
+                      branchc=newValue.toString();
+                    });}, items: branch.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
@@ -218,10 +219,10 @@ class _container1State extends State<container1> {
                   }).toList(),),
                 ),
 
-              const SizedBox
-                (
-                height: 8,
-              ),
+                const SizedBox
+                  (
+                  height: 8,
+                ),
 
                 Text(
                   "Select Year :",
@@ -295,9 +296,9 @@ class _container1State extends State<container1> {
                           return "Enter Student Number";
                         }
                         else if(isValidStudentNumber(value)==false)
-                          {
-                            return "Incorrect Student Number";
-                          }
+                        {
+                          return "Incorrect Student Number";
+                        }
                         return null;
                       },
                     ),
@@ -344,9 +345,9 @@ class _container1State extends State<container1> {
                           return "Enter email";
                         }
                         else if(isValidEmail(value.toString())==false)
-                          {
-                            return "Incorrect email";
-                          }
+                        {
+                          return "Incorrect email";
+                        }
                         return null;
                       },
                     ),
@@ -513,9 +514,9 @@ class _container1State extends State<container1> {
 
             ElevatedButton(onPressed: ()async{
               if(formfield.currentState!.validate()&&((mailc.text.contains(stdc.text)==false&&stdc.text.length==7)||( mailc.text.contains(stdc.text.substring(0,stdc.text.length-1))==false && stdc.text.length==8 )))
-                {
-                  print("student number and email not matching");
-                }
+              {
+                print("student number and email not matching");
+              }
               else if(formfield.currentState!.validate()&&(branchc=="empty" || yearc=="empty" || scholarc=="empty"))
               {
                 print('Some field is missing');
@@ -525,14 +526,16 @@ class _container1State extends State<container1> {
                 await getToken();
                 print(_token);
                 if(_token !='empty')
+                {
+                  print(int.parse(phonec.text.toString()));
+                  print(int.parse(yearc));
+                  User user=User(contactNumber: int.parse(phonec.text),currentYear: int.parse(yearc),email: mailc.text,gender:genderc,studentId: stdc.text,name: namec.text,residency: scholarc,token: _token.toString(), branch: branchc.toString() );
+                  print(namec.text + mailc.text + namec.text + phonec.text + stdc.text );
+                  if(await registerUserWithApiEndpoint(user)==true)
                   {
-                    User user=User(contactNumber: phonec.text,currentYear: yearc.toString(),email: mailc.text,gender:gender.toString(),studentId: stdc.text,name: namec.text,residency: scholarc.toString(),token: _token.toString(), branch: branchc.toString() );
-                    print(namec.text + mailc.text + namec.text + phonec.text + stdc.text );
-                    if(registerUserWithApiEndpoint(user)==true)
-                      {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>thanks()));
-                      }
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>thanks()));
                   }
+                }
               }
               else
               {
