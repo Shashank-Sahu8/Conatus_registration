@@ -6,6 +6,7 @@ class User {
   final String studentId;
   final String residency;
   final String currentYear;
+  final String branch;
   final String token;
 
   User({
@@ -16,6 +17,7 @@ class User {
     required this.studentId,
     required this.residency,
     required this.currentYear,
+    required this.branch,
     required this.token
   });
 
@@ -28,6 +30,7 @@ class User {
       'studentId': studentId,
       'residency': residency,
       'currentYear': currentYear,
+      'branch':branch,
       'token':token
     };
   }

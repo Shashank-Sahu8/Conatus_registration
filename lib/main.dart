@@ -7,7 +7,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
     bool ready =
-        await GRecaptchaV3.ready("6Lev2bEpAAAAANz_PcRb4GnPEIvT-v3BbniEEvxz", showBadge: false);
+        await GRecaptchaV3.ready("6LfHXrgpAAAAAIyxKAmFAwfhD3281SIqU6prrPfQ", showBadge: false);
   }
   runApp(const MyApp());
 }

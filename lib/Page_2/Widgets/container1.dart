@@ -18,7 +18,7 @@ class container1 extends StatefulWidget {
 }
 
 class _container1State extends State<container1> {
-    String _token = 'empty';
+  String _token = 'empty';
   final namec =TextEditingController();
   String branchc="empty";
   final stdc =TextEditingController();
@@ -32,11 +32,11 @@ class _container1State extends State<container1> {
   static Color valcolor=Colors.black;
 
 
+
     Future<void> getToken() async {
       String token = await GRecaptchaV3.execute('submit') ?? 'null returned';
-      print(token);
       setState(() {
-        _token = token;
+        _token = token.toString();
       });
     }
 
@@ -511,7 +511,7 @@ class _container1State extends State<container1> {
 
             //SUBMIT BUTTON
 
-            ElevatedButton(onPressed: (){
+            ElevatedButton(onPressed: ()async{
               if(formfield.currentState!.validate()&&((mailc.text.contains(stdc.text)==false&&stdc.text.length==7)||( mailc.text.contains(stdc.text.substring(0,stdc.text.length-1))==false && stdc.text.length==8 )))
                 {
                   print("student number and email not matching");
@@ -522,10 +522,11 @@ class _container1State extends State<container1> {
               }
               else if(formfield.currentState!.validate())
               {
-                getToken();
-                User user=User(contactNumber: phonec.text,currentYear: yearc.toString(),email: mailc.text,gender:gender.toString(),studentId: stdc.text,name: namec.text,residency: scholarc.toString(),token: _token.toString() );
-                if(_token=='empty')
+                await getToken();
+                print(_token);
+                if(_token !='empty')
                   {
+                    User user=User(contactNumber: phonec.text,currentYear: yearc.toString(),email: mailc.text,gender:gender.toString(),studentId: stdc.text,name: namec.text,residency: scholarc.toString(),token: _token.toString(), branch: branchc.toString() );
                     print(namec.text + mailc.text + namec.text + phonec.text + stdc.text );
                     if(registerUserWithApiEndpoint(user)==true)
                       {
