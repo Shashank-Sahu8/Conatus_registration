@@ -6,10 +6,11 @@ import 'package:webapp/screens/Page_1/Event_Details_1.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
-    bool ready =
-        await GRecaptchaV3.ready("6LfHXrgpAAAAAIyxKAmFAwfhD3281SIqU6prrPfQ", showBadge: false);
+    bool ready = await GRecaptchaV3.ready("6Ley78IpAAAAAF7QSlpEI5JLOWY_Pb01eWuo8mLW",showBadge: false);
+    print("Is Recaptcha ready? $ready");
+    runApp(const MyApp());
   }
-  runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
