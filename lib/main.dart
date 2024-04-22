@@ -4,11 +4,6 @@ import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
 import 'package:webapp/screens/Page_1/Event_Details_1.dart';
 
 void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  if (kIsWeb) {
-    bool ready =
-        await GRecaptchaV3.ready("6LfHXrgpAAAAAIyxKAmFAwfhD3281SIqU6prrPfQ", showBadge: false);
-  }
   runApp(const MyApp());
 }
 

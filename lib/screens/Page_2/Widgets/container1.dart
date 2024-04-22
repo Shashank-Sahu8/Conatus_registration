@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:webapp/Services/api_call.dart';
@@ -9,7 +8,8 @@ import 'package:webapp/Utils/Colour.dart';
 import 'package:webapp/Utils/constants.dart';
 import 'package:webapp/model/model1.dart';
 import 'package:webapp/screens/Page_3/ThankYou_page.dart';
-
+import 'dart:ui_web' as ui;
+import 'dart:html' as html;
 
 class container1 extends StatefulWidget {
   const container1({super.key});
@@ -31,14 +31,27 @@ class _container1State extends State<container1> {
   ScrollController _scrollController = ScrollController();
   final formfield = GlobalKey<FormState>();
   static Color valcolor=Colors.black;
+  String createdViewId = 'recaptcha_element';
 
 
-
-  Future<void> getToken() async {
-    String token = await GRecaptchaV3.execute('submit') ?? 'null returned';
-    setState(() {
-      _token = token.toString();
+  @override
+  void initState() {
+    ui.platformViewRegistry.registerViewFactory(
+      createdViewId,
+          (int viewId) => html.IFrameElement()
+        ..style.height = '100%'
+        ..style.width = '100%'
+        ..src = '/assets/recaptcha.html'
+        ..style.border = 'none',
+    );
+    html.window.onMessage.listen((msg) {
+      String token = msg.data;
+      print(token);
+      setState(() {
+        _token=token;
+      });
     });
+    super.initState();
   }
 
   @override
@@ -484,6 +497,14 @@ class _container1State extends State<container1> {
                   (
                   height: 8,
                 ),
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: HtmlElementView(viewType: createdViewId),
+                  ),
+                ),
               ],
             ),
           ),
@@ -523,8 +544,6 @@ class _container1State extends State<container1> {
               }
               else if(formfield.currentState!.validate())
               {
-                await getToken();
-                print(_token);
                 if(_token !='empty')
                 {
                   print(int.parse(phonec.text.toString()));
@@ -536,6 +555,10 @@ class _container1State extends State<container1> {
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>thanks()));
                   }
                 }
+                else
+                  {
+                    print("check recaptcha pending");
+                  }
               }
               else
               {
