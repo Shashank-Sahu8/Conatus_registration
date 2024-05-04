@@ -1,14 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart'as http;
 import 'package:webapp/model/model1.dart';
-
-
+import 'package:webapp/config.dart';
 
 Future<bool> registerUserWithApiEndpoint(User userData) async {
   try {
     Map<String, dynamic> userJson = userData.toJson();
     final response = await http.post(
-      Uri.parse('https://registration-w4hb.onrender.com/user/Registeration'),
+      Uri.parse(AppConfig.api),
       body: jsonEncode(userJson),
       headers: {
         "Access-Control-Allow-Origin": "*",
