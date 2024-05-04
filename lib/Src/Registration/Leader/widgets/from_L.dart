@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webapp/Src/Registration/Member2/member2.dart';
 import '../../../../Utils/constants.dart';
@@ -472,10 +473,26 @@ class _from_lState extends State<form_l> {
                         onPressed: (){
                           if(formfield1.currentState!.validate()&&((mailc1.text.contains(stdc1.text)==false&&stdc1.text.length==7)||( mailc1.text.contains(stdc1.text.substring(0,stdc1.text.length-1))==false && stdc1.text.length==8 )))
                           {
+                            Fluttertoast.showToast(
+                                msg: "student number and email not matching",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.TOP,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.white,
+                                textColor: Colors.black,
+                                fontSize: 16.0
+                            );
                             print("student number and email not matching");
                           }
                           else if(formfield1.currentState!.validate()&&(branchc1=="empty" || yearc1=="empty" || resc1 =="empty"))
                           {
+                            Fluttertoast.showToast(
+                                msg: "Some field is missing",
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.TOP,
+                                timeInSecForIosWeb: 2,webPosition: LinearBorder.top(),
+                                fontSize: 14.0
+                            );
                             print('Some field is missing');
                           }
                           else if(formfield1.currentState!.validate())

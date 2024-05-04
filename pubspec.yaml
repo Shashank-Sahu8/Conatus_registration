@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_fonts: ^6.2.1
   g_recaptcha_v3: ^0.0.6
+  flash: ^3.1.0
+  fluttertoast: ^8.2.5
 
 dev_dependencies:
   flutter_test:

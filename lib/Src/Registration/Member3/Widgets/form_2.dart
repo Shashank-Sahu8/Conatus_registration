@@ -6,6 +6,7 @@ import '../../../../Services/api_call.dart';
 import '../../../../Utils/constants.dart';
 import '../../../../model/model1.dart';
 import '../../../thanks.dart';
+import '../../Leader/leader.dart';
 
 class form_2 extends StatefulWidget {
   User teamdetails;
@@ -41,7 +42,7 @@ class _form_2State extends State<form_2> {
         ..src = '/assets/recaptcha.html'
         ..style.border = 'none',
     );
-    html.window.onMessage.listen((msg)  async {
+    html.window.onMessage.listen((msg)   {
       String token = msg.data;
       print("----"+token+"----");
       setState(() {
@@ -52,10 +53,14 @@ class _form_2State extends State<form_2> {
 
       if(widget.teamdetails.token!='empty')
       {
-        if(await registerUserWithApiEndpoint(widget.teamdetails)==true)
+        if(registerUserWithApiEndpoint(widget.teamdetails)==true)
         {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>thanks()));
         }
+        else
+          {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Leader()));
+          }
       }
       else
       {

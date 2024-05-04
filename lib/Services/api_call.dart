@@ -9,10 +9,7 @@ Future<bool> registerUserWithApiEndpoint(User userData) async {
     final response = await http.post(
       Uri.parse(AppConfig.api),
       body: jsonEncode(userJson),
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        'Content-Type': 'application/json',
-      },
+
     );
 
     if (response.statusCode == 402) {
