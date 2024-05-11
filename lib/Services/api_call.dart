@@ -12,21 +12,22 @@ Future<bool> registerUserWithApiEndpoint(User userData) async {
 
     );
 
-    if (response.statusCode == 402) {
-      print('API Response: already registered ${response.body}');
+    if(response.statusCode==200)
+    {
+      print("success");
+      print("status code for success: ${response.statusCode}");
       return true;
-    } else if((response.statusCode == 401)) {
+    }
+    else if((response.statusCode == 401)) {
       print("token required");
       print('Failed to register user: ${response.statusCode}');
       print('Response body: ${response.body}');
       return false;
     }
-    else if(response.statusCode==200)
-      {
-        print("success");
-        print("status code error ${response.statusCode}");
-        return true;
-      }
+    else if (response.statusCode == 402) {
+      print('API Response: already registered ${response.body}');
+      return true;
+    }
     else
       {
         print('Response body: ${response.statusCode}');

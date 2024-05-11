@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:html'as html;
 import 'dart:ui_web'as ui;
 import '../../../../Services/api_call.dart';
 import '../../../../Utils/constants.dart';
+import '../../../../config.dart';
 import '../../../../model/model1.dart';
 import '../../../thanks.dart';
 import '../../Leader/leader.dart';
+import 'package:http/http.dart'as http;
 
 class form_2 extends StatefulWidget {
   User teamdetails;
@@ -42,35 +46,37 @@ class _form_2State extends State<form_2> {
         ..src = '/assets/recaptcha.html'
         ..style.border = 'none',
     );
-    html.window.onMessage.listen((msg)   {
+    html.window.onMessage.listen((msg)    async {
       String token = msg.data;
-      print("----"+token+"----");
       setState(() {
         _token=token;
+        widget.teamdetails.token=token;
       });
-      widget.teamdetails.token=token;
       print("wop");
-
+      print(widget.teamdetails.token);
       if(widget.teamdetails.token!='empty')
       {
-        if(registerUserWithApiEndpoint(widget.teamdetails)==true)
-        {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>thanks()));
-        }
-        else
-          {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Leader()));
-          }
+         _performApiCall();
       }
       else
       {
         print("Please try again");
       }
       print("work end");
+
+
     });
     super.initState();
   }
 
+  void _performApiCall() async {
+    bool isRegistered = await registerUserWithApiEndpoint(widget.teamdetails);
+    if (isRegistered) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => thanks()));
+    } else {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Leader()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -457,7 +463,7 @@ class _form_2State extends State<form_2> {
                   Row(mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                          onPressed: (){
+                          onPressed: ()  async {
                         if(formfield1.currentState!.validate()&&((mailc1.text.contains(stdc1.text)==false&&stdc1.text.length==7)||( mailc1.text.contains(stdc1.text.substring(0,stdc1.text.length-1))==false && stdc1.text.length==8 )))
                         {
                         print("student number and email not matching");
@@ -466,21 +472,22 @@ class _form_2State extends State<form_2> {
                         {
                         print('Some field is missing');
                         }
-                        else if(formfield1.currentState!.validate())
-                        {
-                        widget.teamdetails.name.add(namec1.text);
-                        widget.teamdetails.email.add(mailc1.text);
-                        widget.teamdetails.contactNumber.add(int.parse(phonec1.text));
-                        widget.teamdetails.gender.add(genderc1);
-                        widget.teamdetails.studentId.add(stdc1.text);
-                        widget.teamdetails.residency.add(resc1);
-                        widget.teamdetails.currentYear.add(int.parse(yearc1));
-                        widget.teamdetails.branch.add(branchc1);
-                        print(widget.teamdetails.branch);
-                        print(widget.teamdetails.name);
-                        _showRecaptchaDialog();
-                        }
+                        else if(formfield1.currentState!.validate()) {
+                          widget.teamdetails.name.add(namec1.text);
+                          widget.teamdetails.email.add(mailc1.text);
+                          widget.teamdetails.contactNumber.add(
+                              int.parse(phonec1.text));
+                          widget.teamdetails.gender.add(genderc1);
+                          widget.teamdetails.studentId.add(stdc1.text);
+                          widget.teamdetails.residency.add(resc1);
+                          widget.teamdetails.currentYear.add(int.parse(yearc1));
+                          widget.teamdetails.branch.add(branchc1);
+                          print(widget.teamdetails.branch);
+                          print(widget.teamdetails.name);
+                          await _showRecaptchaDialog();
+                          print("--------------${_token}----");
 
+                        }
                         },style: ElevatedButton.styleFrom(backgroundColor: Color(0xff031148),shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
                           child: Padding(
                             padding: const EdgeInsets.only(left: 18.0,right: 18.0,top: 12,bottom: 12),
@@ -496,8 +503,8 @@ class _form_2State extends State<form_2> {
       ),
     );
   }
-  Future<void> _showRecaptchaDialog() async{
-    await showDialog(
+   _showRecaptchaDialog() {
+     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {

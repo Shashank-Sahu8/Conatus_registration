@@ -8,7 +8,7 @@ class User {
   final List<String> residency;
   final List<int> currentYear;
   final List<String> branch;
-   String token;
+  String token;
 
 
   User({
