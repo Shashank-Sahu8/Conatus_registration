@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/Src/Pages/description.dart';
 
+import 'Src/Pages/splash_screen.dart';
 import 'Src/Pages/thanks.dart';
 
 void main() async{
@@ -33,7 +34,7 @@ class start extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      home:thanks(name: 'Shashank', mail: 'shashank22111342@akgec.ac.in',)// Member3(teamdetails: teamdetails,),
+      home:splash_screen()// Member3(teamdetails: teamdetails,),
     );
   }
 }

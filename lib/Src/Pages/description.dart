@@ -1,6 +1,7 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:webapp/Src/Registration/Leader/leader.dart';
 
 class main_page extends StatefulWidget {
@@ -11,7 +12,6 @@ class main_page extends StatefulWidget {
 }
 
 class _main_pageState extends State<main_page> {
-  bool ontick=false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +33,13 @@ class _main_pageState extends State<main_page> {
               ),
             ],
           )],),
-          Image(image: AssetImage("assets/illustration.png"),height: MediaQuery.of(context).size.height,width: MediaQuery.of(context).size.width,),
+          MediaQuery.of(context).size.width<600?SizedBox(): Image(image: AssetImage("assets/illustration.png"),height: MediaQuery.of(context).size.height,width: MediaQuery.of(context).size.width,),
           Column(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image(image: AssetImage("assets/topleftill.png"),height: 100,),
-                  Image(image: AssetImage("assets/topill.png"),height: 100,)
+                  Image(image: AssetImage("assets/topleftill.png"),height: MediaQuery.of(context).size.width>600?150:70,),
+                  Image(image: AssetImage("assets/topill.png"),height: MediaQuery.of(context).size.width>600?150:70)
                 ],
               ),
             ],
@@ -50,7 +50,7 @@ class _main_pageState extends State<main_page> {
                 child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 FittedBox(fit: BoxFit.scaleDown, child: Padding(
-                  padding: const EdgeInsets.only(top: 28.0,left: 25.0,right: 25.0),
+                  padding: const EdgeInsets.only(top: 50.0,left: 25.0,right: 25.0),
                   child: Text("Epoch Of Congnition",textAlign: TextAlign.center,style: GoogleFonts.brunoAceSc(fontWeight: FontWeight.w700,fontSize: 50,color: Colors.white),),
                 ),
                 ),
@@ -64,38 +64,31 @@ class _main_pageState extends State<main_page> {
                     ),
                   ),
                 ),
+                SizedBox(width: 1,),
 
                 ElevatedButton(onPressed: (){
-                  if(ontick=true)
-                    {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.transparent,
-                        content: AwesomeSnackbarContent(
-                          title: 'On Snap!',
-                          message:
-                          'This is an example error message that will be shown in the body of snackbar!',
-                          contentType: ContentType.failure,
-                        ),
-                      );
 
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(snackBar);
+                      showTopSnackBar(
+                        Overlay.of(context),
+                        SizedBox(
+                          height: 40,
+                          child: CustomSnackBar.error(
+                            message:
+                            "Something went wrong. Please check your credentials and try again",
+                            backgroundColor: Colors.blueGrey,
+                          ),
+                        ),
+
+                      );
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Leader()));
                     }
-                  else
-                    {
-                      print("tick pending");
-                    }
-                  },child: Padding(
+                  ,child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text("Register",style: TextStyle(color: Color(0xff031148) ,fontSize: 20,fontWeight: FontWeight.w700),),
                   ),style: ElevatedButton.styleFrom(elevation: 100,backgroundColor: Colors.white,shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5)))),),
 
                 Container(
-                  decoration: BoxDecoration(color: Colors.white54,borderRadius: BorderRadius.only(topRight:Radius.circular(50),topLeft:Radius.circular(50))),
+                  decoration: BoxDecoration(color: Colors.white70,borderRadius: BorderRadius.only(topRight:Radius.circular(50),topLeft:Radius.circular(50))),
                   child: Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +103,7 @@ class _main_pageState extends State<main_page> {
                         Text("\u2022 College email must be used for the registration.",style:GoogleFonts.montserrat(fontWeight:FontWeight.w500,fontSize:16,),),
                         Text("\u2022 Only team leader has to fill the registration form.",style:GoogleFonts.montserrat(fontWeight:FontWeight.w500,fontSize:16,),),
                         Text("\u2022The team name must have a minimum 4 characters without the use of special characters like(-,_,@,etc).",style:GoogleFonts.montserrat(fontWeight:FontWeight.w500,fontSize:16,),),
-                        SizedBox(height: 20,)
+
                       ],
                     ),
                   ),

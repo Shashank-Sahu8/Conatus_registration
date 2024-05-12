@@ -29,7 +29,7 @@ class poster extends StatelessWidget {
               )
             ],
           ),
-          Expanded(child: SizedBox(height: 150)),
+          SizedBox(height: 150),
           Expanded(child: Image(image: AssetImage("assets/robo_rev.png")))
         ],
       )

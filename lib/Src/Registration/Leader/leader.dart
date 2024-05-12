@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:webapp/Src/Registration/Widgets/poster.dart';
 import '../../../Utils/constants.dart';
 import '../../../model/model1.dart';
@@ -533,27 +535,31 @@ class _LeaderState extends State<Leader> {
                                 onPressed: (){
                                   if(formfield1.currentState!.validate()&&((mailc1.text.contains(stdc1.text)==false&&stdc1.text.length==7)||( mailc1.text.contains(stdc1.text.substring(0,stdc1.text.length-1))==false && stdc1.text.length==8 )))
                                   {
-                                    Fluttertoast.showToast(
-                                        msg: "student number and email not matching",
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.TOP,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.white,
-                                        textColor: Colors.black,
-                                        fontSize: 16.0
+                                    showTopSnackBar(
+                                      Overlay.of(context),
+                                      SizedBox(
+                                        height: 40,
+                                        child: CustomSnackBar.error(
+                                          message:
+                                          "student number and email not matching",
+                                          backgroundColor: Colors.blueGrey,
+                                        ),
+                                      ),
                                     );
-                                    print("student number and email not matching");
                                   }
                                   else if(formfield1.currentState!.validate()&&(branchc1=="empty" || yearc1=="empty" || resc1 =="empty"))
                                   {
-                                    Fluttertoast.showToast(
-                                        msg: "Some field is missing",
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.TOP,
-                                        timeInSecForIosWeb: 2,webPosition: LinearBorder.top(),
-                                        fontSize: 14.0
+                                    showTopSnackBar(
+                                      Overlay.of(context),
+                                      SizedBox(
+                                        height: 40,
+                                        child: CustomSnackBar.error(
+                                          message:
+                                          "Some field is missing",
+                                          backgroundColor: Colors.blueGrey,
+                                        ),
+                                      ),
                                     );
-                                    print('Some field is missing');
                                   }
                                   else if(formfield1.currentState!.validate())
                                   {
@@ -562,7 +568,17 @@ class _LeaderState extends State<Leader> {
                                   }
                                   else
                                   {
-                                    print("Please try again");
+                                    showTopSnackBar(
+                                      Overlay.of(context),
+                                      SizedBox(
+                                        height: 40,
+                                        child: CustomSnackBar.error(
+                                          message:
+                                          "Some invalid inputs",
+                                          backgroundColor: Colors.blueGrey,
+                                        ),
+                                      ),
+                                    );
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(backgroundColor: Color(0xff031148),shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
@@ -1034,27 +1050,31 @@ class _LeaderState extends State<Leader> {
                           onPressed: (){
                             if(formfield1.currentState!.validate()&&((mailc1.text.contains(stdc1.text)==false&&stdc1.text.length==7)||( mailc1.text.contains(stdc1.text.substring(0,stdc1.text.length-1))==false && stdc1.text.length==8 )))
                             {
-                              Fluttertoast.showToast(
-                                  msg: "student number and email not matching",
-                                  toastLength: Toast.LENGTH_LONG,
-                                  gravity: ToastGravity.TOP,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.white,
-                                  textColor: Colors.black,
-                                  fontSize: 16.0
+                              showTopSnackBar(
+                                Overlay.of(context),
+                                SizedBox(
+                                  height: 40,
+                                  child: CustomSnackBar.error(
+                                    message:
+                                    "student number and email not matching",
+                                    backgroundColor: Colors.blueGrey,
+                                  ),
+                                ),
                               );
-                              print("student number and email not matching");
                             }
                             else if(formfield1.currentState!.validate()&&(branchc1=="empty" || yearc1=="empty" || resc1 =="empty"))
                             {
-                              Fluttertoast.showToast(
-                                  msg: "Some field is missing",
-                                  toastLength: Toast.LENGTH_LONG,
-                                  gravity: ToastGravity.TOP,
-                                  timeInSecForIosWeb: 2,webPosition: LinearBorder.top(),
-                                  fontSize: 14.0
+                              showTopSnackBar(
+                                Overlay.of(context),
+                                SizedBox(
+                                  height: 40,
+                                  child: CustomSnackBar.error(
+                                    message:
+                                    "Some field is missing",
+                                    backgroundColor: Colors.blueGrey,
+                                  ),
+                                ),
                               );
-                              print('Some field is missing');
                             }
                             else if(formfield1.currentState!.validate())
                             {
@@ -1063,7 +1083,17 @@ class _LeaderState extends State<Leader> {
                             }
                             else
                             {
-                              print("Please try again");
+                              showTopSnackBar(
+                                Overlay.of(context),
+                                SizedBox(
+                                  height: 40,
+                                  child: CustomSnackBar.error(
+                                    message:
+                                    "Some invalid inputs",
+                                    backgroundColor: Colors.blueGrey,
+                                  ),
+                                ),
+                              );
                             }
                           },
                           style: ElevatedButton.styleFrom(backgroundColor: Color(0xff031148),shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../../Utils/constants.dart';
 import '../../../model/model1.dart';
@@ -467,11 +469,31 @@ class _Member2State extends State<Member2> {
                               onPressed: (){
                                 if(formfield1.currentState!.validate()&&((mailc1.text.contains(stdc1.text)==false&&stdc1.text.length==7)||( mailc1.text.contains(stdc1.text.substring(0,stdc1.text.length-1))==false && stdc1.text.length==8 )))
                                 {
-                                  print("student number and email not matching");
+                                  showTopSnackBar(
+                                    Overlay.of(context),
+                                    SizedBox(
+                                      height: 40,
+                                      child: CustomSnackBar.error(
+                                        message:
+                                        "student number and email not matching",
+                                        backgroundColor: Colors.blueGrey,
+                                      ),
+                                    ),
+                                  );
                                 }
                                 else if(formfield1.currentState!.validate()&&(branchc1=="empty" || yearc1=="empty" || resc1 =="empty"))
                                 {
-                                  print('Some field is missing');
+                                  showTopSnackBar(
+                                    Overlay.of(context),
+                                    SizedBox(
+                                      height: 40,
+                                      child: CustomSnackBar.error(
+                                        message:
+                                        "Some field is missing",
+                                        backgroundColor: Colors.blueGrey,
+                                      ),
+                                    ),
+                                  );
                                 }
                                 else if(formfield1.currentState!.validate())
                                 {
@@ -487,7 +509,17 @@ class _Member2State extends State<Member2> {
                                 }
                                 else
                                 {
-                                  print("Please try again");
+                                  showTopSnackBar(
+                                    Overlay.of(context),
+                                    SizedBox(
+                                      height: 40,
+                                      child: CustomSnackBar.error(
+                                        message:
+                                        "Some invalid inputs",
+                                        backgroundColor: Colors.blueGrey,
+                                      ),
+                                    ),
+                                  );
                                 }
                               },
                               style: ElevatedButton.styleFrom(backgroundColor: Color(0xff031148),shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
@@ -899,11 +931,31 @@ class _Member2State extends State<Member2> {
                         onPressed: (){
                           if(formfield1.currentState!.validate()&&((mailc1.text.contains(stdc1.text)==false&&stdc1.text.length==7)||( mailc1.text.contains(stdc1.text.substring(0,stdc1.text.length-1))==false && stdc1.text.length==8 )))
                           {
-                            print("student number and email not matching");
+                            showTopSnackBar(
+                              Overlay.of(context),
+                              SizedBox(
+                                height: 40,
+                                child: CustomSnackBar.error(
+                                  message:
+                                  "student number and email not matching",
+                                  backgroundColor: Colors.blueGrey,
+                                ),
+                              ),
+                            );
                           }
                           else if(formfield1.currentState!.validate()&&(branchc1=="empty" || yearc1=="empty" || resc1 =="empty"))
                           {
-                            print('Some field is missing');
+                            showTopSnackBar(
+                              Overlay.of(context),
+                              SizedBox(
+                                height: 40,
+                                child: CustomSnackBar.error(
+                                  message:
+                                  "Some field is missing",
+                                  backgroundColor: Colors.blueGrey,
+                                ),
+                              ),
+                            );
                           }
                           else if(formfield1.currentState!.validate())
                           {
@@ -919,7 +971,17 @@ class _Member2State extends State<Member2> {
                           }
                           else
                           {
-                            print("Please try again");
+                            showTopSnackBar(
+                              Overlay.of(context),
+                              SizedBox(
+                                height: 40,
+                                child: CustomSnackBar.error(
+                                  message:
+                                  "Some invalid inputs",
+                                  backgroundColor: Colors.blueGrey,
+                                ),
+                              ),
+                            );
                           }
                         },
                         style: ElevatedButton.styleFrom(backgroundColor: Color(0xff031148),shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),

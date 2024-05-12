@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'dart:html'as html;
 import 'dart:ui_web'as ui;
 import '../../../Services/api_call.dart';
@@ -80,7 +82,17 @@ class _Member3State extends State<Member3> {
       }
       else
       {
-        print("Please try again");
+        showTopSnackBar(
+          Overlay.of(context),
+          SizedBox(
+            height: 40,
+            child: CustomSnackBar.error(
+              message:
+              "Please try again,Internet not conected",
+              backgroundColor: Colors.blueGrey,
+            ),
+          ),
+        );
       }
 
     });
@@ -571,37 +583,32 @@ class _Member3State extends State<Member3> {
                             onPressed: ()   {
                               if(formfield1.currentState!.validate()&&((mailc1.text.contains(stdc1.text)==false&&stdc1.text.length==7)||( mailc1.text.contains(stdc1.text.substring(0,stdc1.text.length-1))==false && stdc1.text.length==8 )))
                               {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text("Student number and email not matching"),
-                                    behavior: SnackBarBehavior.floating,
-                                    margin: EdgeInsets.all(8.0), // Small distance from all boundaries
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10.0),
-                                        topRight: Radius.circular(10.0),
-                                      ),
+
+                                showTopSnackBar(
+                                  Overlay.of(context),
+                                  SizedBox(
+                                    height: 40,
+                                    child: CustomSnackBar.error(
+                                      message:
+                                      "student number and email not matching",
+                                      backgroundColor: Colors.blueGrey,
                                     ),
                                   ),
                                 );
-                                print("student number and email not matching");
                               }
                               else if(formfield1.currentState!.validate()&&(branchc1 =="empty" || yearc1 =="empty" || resc1 =="empty"))
                               {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text("Some field is missing"),
-                                    behavior: SnackBarBehavior.floating,
-                                    margin: EdgeInsets.all(8.0), // Small distance from all boundaries
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10.0),
-                                        topRight: Radius.circular(10.0),
-                                      ),
+                                showTopSnackBar(
+                                  Overlay.of(context),
+                                  SizedBox(
+                                    height: 40,
+                                    child: CustomSnackBar.error(
+                                      message:
+                                      "Some field is missing",
+                                      backgroundColor: Colors.blueGrey,
                                     ),
                                   ),
                                 );
-                                print('Some field is missing');
                               }
                               else if(formfield1.currentState!.validate()) {
                                 widget.teamdetails.name.add(namec1.text);
@@ -613,9 +620,6 @@ class _Member3State extends State<Member3> {
                                 widget.teamdetails.currentYear.add(int.parse(yearc1));
                                 widget.teamdetails.branch.add(branchc1);
                                 toggleContainerVisibility();
-                               // _showRecaptchaDialog();
-                                print(widget.teamdetails.branch);
-                                print(widget.teamdetails.name);
                               }
                             },style: ElevatedButton.styleFrom(backgroundColor: Color(0xff031148),shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
                             child: Padding(
@@ -1027,39 +1031,31 @@ class _Member3State extends State<Member3> {
                         onPressed: ()   {
                           if(formfield1.currentState!.validate()&&((mailc1.text.contains(stdc1.text)==false&&stdc1.text.length==7)||( mailc1.text.contains(stdc1.text.substring(0,stdc1.text.length-1))==false && stdc1.text.length==8 )))
                           {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Student number and email not matching"),
-                                behavior: SnackBarBehavior.floating,
-                                margin: EdgeInsets.all(8.0), // Small distance from all boundaries
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10.0),
-                                    topRight: Radius.circular(10.0),
-                                  ),
+                            showTopSnackBar(
+                              Overlay.of(context),
+                              SizedBox(
+                                height: 40,
+                                child: CustomSnackBar.error(
+                                  message:
+                                  "student number and email not matching",
+                                  backgroundColor: Colors.blueGrey,
                                 ),
                               ),
                             );
-                            print("student number and email not matching");
                           }
                           else if(formfield1.currentState!.validate()&&(branchc1 =="empty" || yearc1 =="empty" || resc1 =="empty"))
                           {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Some field is missing"),
-                                behavior: SnackBarBehavior.floating,
-                                margin: EdgeInsets.all(8.0), // Small distance from all boundaries
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10.0),
-                                    topRight: Radius.circular(10.0),
-                                  ),
+                            showTopSnackBar(
+                              Overlay.of(context),
+                              SizedBox(
+                                height: 40,
+                                child: CustomSnackBar.error(
+                                  message:
+                                  "Some field is missing",
+                                  backgroundColor: Colors.blueGrey,
                                 ),
                               ),
                             );
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //     SnackBar(content: Text("Some field is missing")));
-                            print('Some field is missing');
                           }
                           else if(formfield1.currentState!.validate()) {
                             widget.teamdetails.name.add(namec1.text);
@@ -1071,9 +1067,6 @@ class _Member3State extends State<Member3> {
                             widget.teamdetails.currentYear.add(int.parse(yearc1));
                             widget.teamdetails.branch.add(branchc1);
                             toggleContainerVisibility();
-                            //_showRecaptchaDialog();
-                            print(widget.teamdetails.branch);
-                            print(widget.teamdetails.name);
                           }
                         },style: ElevatedButton.styleFrom(backgroundColor: Color(0xff031148),shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
                         child: Padding(
