@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:webapp/Src/Pages/description.dart';
 import 'dart:html'as html;
 import 'dart:ui_web'as ui;
 import '../../../Services/api_call.dart';
@@ -35,7 +36,17 @@ class _Member3State extends State<Member3> {
   String createdViewId = 'recaptcha_element';
   String _token = 'empty';
   bool isLoading = false;
-
+  bool isContainerVisible = false;
+  void toggleContainerVisibility() {
+    setState(() {
+      isContainerVisible = !isContainerVisible;
+    });
+  }
+  void lodingvisibilty() {
+    setState(() {
+      isContainerVisible = !isContainerVisible;
+    });
+  }
 
   @override
   void initState() {
@@ -50,26 +61,24 @@ class _Member3State extends State<Member3> {
 
     html.window.onMessage.listen((msg) async {
       String token = msg.data;
+
       setState(() {
+        toggleContainerVisibility();
         _token=token;
         widget.teamdetails.token=token;
-        isLoading=true;
+        lodingvisibilty();
       });
-      print("wop");
       if(widget.teamdetails.token!='empty')
       {
         setState(() {
           isLoading=true;
         });
         if (await registerUserWithApiEndpoint(widget.teamdetails)) {
-          setState(() {
-            isLoading=false;
-          });
+          lodingvisibilty();
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => thanks()));
         } else {
-          setState(() {
-            isLoading=false;
-          });
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => main_page()));
+            lodingvisibilty();
         }
       }
       else
@@ -83,25 +92,34 @@ class _Member3State extends State<Member3> {
     super.initState();
   }
 
-  Future<void> _performApiCall()  async {
-    Future<bool> isRegistered =  registerUserWithApiEndpoint(widget.teamdetails);
-    if (await isRegistered) {
-      setState(() {
-        isLoading=false;
-      });
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => thanks()));
-    } else {
-      setState(() {
-        isLoading=false;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-    body: MediaQuery.of(context).size.width<600?mobile():desktop()
+    body: Stack(
+      children: [
+        MediaQuery.of(context).size.width<600?mobile():desktop(),
+        Visibility(
+          visible: isContainerVisible,
+          child: GestureDetector(
+            onTap: toggleContainerVisibility,
+            child: Container(
+              color: Colors.black.withOpacity(0.2), // Transparent red
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              child: Container(height:400,width:300,child: HtmlElementView(viewType: createdViewId)),
+            ),
+          ),
+        ),
+      ],
+    )
     );
   }
 
@@ -564,8 +582,6 @@ class _Member3State extends State<Member3> {
                                     ),
                                   ),
                                 );
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //     SnackBar(content: Text("Some field is missing")));
                                 print('Some field is missing');
                               }
                               else if(formfield1.currentState!.validate()) {
@@ -577,8 +593,8 @@ class _Member3State extends State<Member3> {
                                 widget.teamdetails.residency.add(resc1);
                                 widget.teamdetails.currentYear.add(int.parse(yearc1));
                                 widget.teamdetails.branch.add(branchc1);
-
-                                _showRecaptchaDialog();
+                                toggleContainerVisibility();
+                               // _showRecaptchaDialog();
                                 print(widget.teamdetails.branch);
                                 print(widget.teamdetails.name);
                               }
@@ -1035,8 +1051,8 @@ class _Member3State extends State<Member3> {
                             widget.teamdetails.residency.add(resc1);
                             widget.teamdetails.currentYear.add(int.parse(yearc1));
                             widget.teamdetails.branch.add(branchc1);
-
-                            _showRecaptchaDialog();
+                            toggleContainerVisibility();
+                            //_showRecaptchaDialog();
                             print(widget.teamdetails.branch);
                             print(widget.teamdetails.name);
                           }
