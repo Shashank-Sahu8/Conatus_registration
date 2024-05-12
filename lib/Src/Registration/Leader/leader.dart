@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -75,7 +74,7 @@ class _LeaderState extends State<Leader> {
                   padding: const EdgeInsets.only(left: 8.0,top:15,bottom:13),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Epoch Of Coginition",textAlign: TextAlign.center,style: GoogleFonts.brunoAceSc(fontWeight: FontWeight.w600,fontSize: 21,color: Colors.white)),
+                      Text("Epoch Of Cognition",textAlign: TextAlign.center,style: GoogleFonts.brunoAceSc(fontWeight: FontWeight.w600,fontSize: 21,color: Colors.white)),
                       Expanded(child: SizedBox(height: 200,)),
                       Text("Learn | Improvise | Grow",style: GoogleFonts.montserrat(fontSize:13,color:Colors.white),),
                     ],

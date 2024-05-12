@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webapp/Src/Pages/description.dart';
 
-import 'Src/Pages/splash_screen.dart';
-import 'Src/Pages/thanks.dart';
-import 'Src/Registration/Member3/member3.dart';
-import 'model/model1.dart';
 
 void main() async{
   runApp(const MyApp());
