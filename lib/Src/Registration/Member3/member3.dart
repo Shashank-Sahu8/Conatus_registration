@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:webapp/Src/Pages/description.dart';
 import 'dart:html'as html;
 import 'dart:ui_web'as ui;
 import '../../../Services/api_call.dart';
 import '../../../Utils/constants.dart';
 import '../../../model/model1.dart';
+import '../../Pages/description.dart';
 import '../../Pages/thanks.dart';
 import '../Widgets/poster.dart';
+
 
 class Member3 extends StatefulWidget {
   User teamdetails;
@@ -34,9 +36,9 @@ class _Member3State extends State<Member3> {
   bool isdesktop(BuildContext context)=>MediaQuery.of(context).size.width>=600;
   bool ismobile(BuildContext context)=>MediaQuery.of(context).size.width<600;
   String createdViewId = 'recaptcha_element';
-  String _token = 'empty';
   bool isLoading = false;
   bool isContainerVisible = false;
+
   void toggleContainerVisibility() {
     setState(() {
       isContainerVisible = !isContainerVisible;
@@ -44,7 +46,7 @@ class _Member3State extends State<Member3> {
   }
   void lodingvisibilty() {
     setState(() {
-      isContainerVisible = !isContainerVisible;
+      isLoading = !isLoading;
     });
   }
 
@@ -59,34 +61,27 @@ class _Member3State extends State<Member3> {
         ..style.border = 'none',
     );
 
-    html.window.onMessage.listen((msg) async {
+    html.window.onMessage.listen((msg)   async {
       String token = msg.data;
-
+      lodingvisibilty();
+      toggleContainerVisibility();
       setState(() {
-        toggleContainerVisibility();
-        _token=token;
         widget.teamdetails.token=token;
-        lodingvisibilty();
       });
       if(widget.teamdetails.token!='empty')
       {
-        setState(() {
-          isLoading=true;
-        });
-        if (await registerUserWithApiEndpoint(widget.teamdetails)) {
-          lodingvisibilty();
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => thanks()));
+        if ( await registerUserWithApiEndpoint(widget.teamdetails)) {
+         lodingvisibilty();
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => thanks(name: widget.teamdetails.name[0], mail:widget.teamdetails.email[0] )));
         } else {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => main_page()));
-            lodingvisibilty();
+           lodingvisibilty();
         }
       }
       else
       {
         print("Please try again");
       }
-      print("work end");
-
 
     });
     super.initState();
@@ -99,7 +94,31 @@ class _Member3State extends State<Member3> {
     return Scaffold(
     body: Stack(
       children: [
-        MediaQuery.of(context).size.width<600?mobile():desktop(),
+        Stack(
+          children: [
+            MediaQuery.of(context).size.width<600?mobile():desktop(),
+
+            Visibility(
+              visible: isLoading,
+              child: Container(
+                color: Colors.black.withOpacity(0.2), // Transparent red
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                  child: Center(child:SpinKitCircle(
+
+                  size: 100.0, color: Colors.white,
+                ) ,),
+              ),
+            ),
+          ],
+        ),
+
         Visibility(
           visible: isContainerVisible,
           child: GestureDetector(
@@ -1072,17 +1091,17 @@ class _Member3State extends State<Member3> {
   }
 
 
-  Future<void> _showRecaptchaDialog()async {
-    await showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Center(
-            child: HtmlElementView(viewType: createdViewId)
-        );
-      },
-    );
-
-  }
+  // Future<void> _showRecaptchaDialog()async {
+  //   await showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (BuildContext context) {
+  //       return Center(
+  //           child: HtmlElementView(viewType: createdViewId)
+  //       );
+  //     },
+  //   );
+  //
+  // }
 
 }

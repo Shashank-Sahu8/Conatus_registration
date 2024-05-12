@@ -1,14 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart'as http;
 import 'package:webapp/model/model1.dart';
-import 'package:webapp/config.dart';
 
 Future<bool> registerUserWithApiEndpoint(User userData) async {
   try {
     Map<String, dynamic> userJson = userData.toJson();
     print("==="+userData.token+"+++");
     final response = await http.post(
-      Uri.parse("https://api.bellcranal.rocks/registeration"),
+      Uri.parse("http://13.202.6.147:8000/registeration"),
       body: jsonEncode(userJson),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',

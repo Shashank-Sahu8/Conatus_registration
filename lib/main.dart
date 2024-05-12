@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'Src/Pages/description.dart';
-import 'Src/Pages/splash_screen.dart';
-import 'Src/Registration/Leader/leader.dart';
-import 'Src/Registration/Member2/member2.dart';
-import 'Src/Registration/Member3/member3.dart';
-import 'model/model1.dart';
+import 'package:webapp/Src/Pages/description.dart';
+
+import 'Src/Pages/thanks.dart';
 
 void main() async{
   runApp(const MyApp());
@@ -32,11 +29,11 @@ class start extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User teamdetails=User(teamname: 'teamc.text',name: ['namec1.text'], email: ['mailc1.text'], contactNumber: [int.parse('98')], gender: ['genderc1'], studentId: ['stdc1.text'], residency: ['resc1'], branch: ['branchc1'], currentYear: [int.parse('87')], token: "empty");
+    // User teamdetails=User(teamname: 'teamc.text',name: ['namec1.text'], email: ['mailc1.text'], contactNumber: [int.parse('98')], gender: ['genderc1'], studentId: ['stdc1.text'], residency: ['resc1'], branch: ['branchc1'], currentYear: [int.parse('87')], token: "empty");
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      home: main_page()//Member3(teamdetails: teamdetails,),
+      home:thanks(name: 'Shashank', mail: 'shashank22111342@akgec.ac.in',)// Member3(teamdetails: teamdetails,),
     );
   }
 }

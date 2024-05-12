@@ -21,11 +21,18 @@ class _main_pageState extends State<main_page> {
     int minutes = difference.inMinutes.remainder(60);
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor:  Color(0xff031148),
+        backgroundColor: Color(0xff031148),
 
       body: Stack(
         children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start,children: [Row(mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0,top: 5),
+                child: Image(image: AssetImage("assets/Conatus Logo.png"),width: 100,),
+              ),
+            ],
+          )],),
           Image(image: AssetImage("assets/illustration.png"),height: MediaQuery.of(context).size.height,width: MediaQuery.of(context).size.width,),
           Column(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -35,12 +42,10 @@ class _main_pageState extends State<main_page> {
                   Image(image: AssetImage("assets/topill.png"),height: 100,)
                 ],
               ),
-
-
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+            padding: const EdgeInsets.only(top: 40.0),
             child: Container(
                 child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.center,
               children: [

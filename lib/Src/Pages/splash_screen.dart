@@ -38,7 +38,11 @@ class _splash_screenState extends State<splash_screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CircularProgressIndicator()
+        child: Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image(image: AssetImage("assets/b logo.png"),height: 200,)
+        ],
+        )
       ),
     );
   }
