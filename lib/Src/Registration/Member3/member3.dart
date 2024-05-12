@@ -40,6 +40,7 @@ class _Member3State extends State<Member3> {
   String createdViewId = 'recaptcha_element';
   bool isLoading = false;
   bool isContainerVisible = false;
+  int touchcount=0;
 
   void toggleContainerVisibility() {
     setState(() {
@@ -225,6 +226,9 @@ class _Member3State extends State<Member3> {
                         onChanged: (value) {
                           setState(() {});
                         },
+                        onTap: (){setState(() {
+                          touchcount++;
+                        });},
                         controller: namec1,
                         decoration: InputDecoration(
                           helperText: '',
@@ -261,6 +265,9 @@ class _Member3State extends State<Member3> {
                           ),
                         ),
                         validator: (value) {
+                          setState(() {
+                            touchcount++;
+                          });
                           if (value!.isEmpty) {
                             return "Enert Name";
                           }
@@ -281,6 +288,9 @@ class _Member3State extends State<Member3> {
                         onChanged: (value) {
                           setState(() {});
                         },
+                        onTap: (){setState(() {
+                          touchcount++;
+                        });},
                         controller: stdc1,
                         decoration: InputDecoration(
                           isDense: true,
@@ -337,6 +347,9 @@ class _Member3State extends State<Member3> {
                         onChanged: (value) {
                           setState(() {});
                         },
+                        onTap: (){setState(() {
+                          touchcount++;
+                        });},
                         keyboardType: TextInputType.emailAddress,
                         controller: mailc1,
                         decoration: InputDecoration(
@@ -395,6 +408,9 @@ class _Member3State extends State<Member3> {
                         onChanged: (value) {
                           setState(() {});
                         },
+                        onTap: (){setState(() {
+                          touchcount++;
+                        });},
                         controller: phonec1,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
@@ -673,6 +689,9 @@ class _Member3State extends State<Member3> {
                     onChanged: (value) {
                       setState(() {});
                     },
+                    onTap: (){setState(() {
+                      touchcount++;
+                    });},
                     controller: namec1,
                     decoration: InputDecoration(
                       helperText: '',
@@ -729,6 +748,9 @@ class _Member3State extends State<Member3> {
                     onChanged: (value) {
                       setState(() {});
                     },
+                    onTap: (){setState(() {
+                      touchcount++;
+                    });},
                     controller: stdc1,
                     decoration: InputDecoration(
                       isDense: true,
@@ -785,6 +807,9 @@ class _Member3State extends State<Member3> {
                     onChanged: (value) {
                       setState(() {});
                     },
+                    onTap: (){setState(() {
+                      touchcount++;
+                    });},
                     keyboardType: TextInputType.emailAddress,
                     controller: mailc1,
                     decoration: InputDecoration(
@@ -843,6 +868,9 @@ class _Member3State extends State<Member3> {
                     onChanged: (value) {
                       setState(() {});
                     },
+                    onTap: (){setState(() {
+                      touchcount++;
+                    });},
                     controller: phonec1,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
@@ -1029,7 +1057,7 @@ class _Member3State extends State<Member3> {
                   children: [
                     ElevatedButton(
                         onPressed: ()   {
-                          if(formfield1.currentState!.validate()&&((mailc1.text.contains(stdc1.text)==false&&stdc1.text.length==7)||( mailc1.text.contains(stdc1.text.substring(0,stdc1.text.length-1))==false && stdc1.text.length==8 )))
+                           if(formfield1.currentState!.validate()&&((mailc1.text.contains(stdc1.text)==false&&stdc1.text.length==7)||( mailc1.text.contains(stdc1.text.substring(0,stdc1.text.length-1))==false && stdc1.text.length==8 )))
                           {
                             showTopSnackBar(
                               Overlay.of(context),
@@ -1057,7 +1085,7 @@ class _Member3State extends State<Member3> {
                               ),
                             );
                           }
-                          else if(formfield1.currentState!.validate()) {
+                          else if(formfield1.currentState!.validate()&&touchcount>3) {
                             widget.teamdetails.name.add(namec1.text);
                             widget.teamdetails.email.add(mailc1.text);
                             widget.teamdetails.contactNumber.add(int.parse(phonec1.text));
@@ -1068,6 +1096,20 @@ class _Member3State extends State<Member3> {
                             widget.teamdetails.branch.add(branchc1);
                             toggleContainerVisibility();
                           }
+                          else
+                            {
+                              showTopSnackBar(
+                                Overlay.of(context),
+                                SizedBox(
+                                  height: 40,
+                                  child: CustomSnackBar.error(
+                                    message:
+                                    "Try Again",
+                                    backgroundColor: Colors.blueGrey,
+                                  ),
+                                ),
+                              );
+                            }
                         },style: ElevatedButton.styleFrom(backgroundColor: Color(0xff031148),shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 18.0,right: 18.0,top: 12,bottom: 12),
@@ -1082,19 +1124,4 @@ class _Member3State extends State<Member3> {
       ),
     );
   }
-
-
-  // Future<void> _showRecaptchaDialog()async {
-  //   await showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (BuildContext context) {
-  //       return Center(
-  //           child: HtmlElementView(viewType: createdViewId)
-  //       );
-  //     },
-  //   );
-  //
-  // }
-
 }
