@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:webapp/Src/Registration/Leader/leader.dart';
 
 class main_page extends StatefulWidget {
@@ -67,19 +65,6 @@ class _main_pageState extends State<main_page> {
                 SizedBox(width: 1,),
 
                 ElevatedButton(onPressed: (){
-
-                      showTopSnackBar(
-                        Overlay.of(context),
-                        SizedBox(
-                          height: 40,
-                          child: CustomSnackBar.error(
-                            message:
-                            "Something went wrong. Please check your credentials and try again",
-                            backgroundColor: Colors.blueGrey,
-                          ),
-                        ),
-
-                      );
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Leader()));
                     }
                   ,child: Padding(
