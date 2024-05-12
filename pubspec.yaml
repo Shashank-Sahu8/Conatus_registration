@@ -39,6 +39,7 @@ dependencies:
   g_recaptcha_v3: ^0.0.6
   flash: ^3.1.0
   fluttertoast: ^8.2.5
+  connectivity_plus: ^6.0.3
 
 dev_dependencies:
   flutter_test:

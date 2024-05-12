@@ -6,10 +6,13 @@ import 'package:webapp/config.dart';
 Future<bool> registerUserWithApiEndpoint(User userData) async {
   try {
     Map<String, dynamic> userJson = userData.toJson();
+    print("==="+userData.token+"+++");
     final response = await http.post(
       Uri.parse(AppConfig.api),
-      body: jsonEncode(userJson),
-
+      body: jsonEncode(userData.toJson()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
     );
 
     if(response.statusCode==200)

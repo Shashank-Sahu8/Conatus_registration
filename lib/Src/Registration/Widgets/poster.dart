@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class poster extends StatelessWidget {
@@ -13,7 +14,7 @@ class poster extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
+          Column(crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FittedBox(fit: BoxFit.scaleDown, child: Padding(
                 padding: const EdgeInsets.only(top: 28.0,left: 25.0,right: 25.0),
@@ -23,21 +24,13 @@ class poster extends StatelessWidget {
               ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 40.0,left: 25.0,right: 25.0),
-                child: Text("Learn | Improvise | Grow",style: GoogleFonts.montserrat(fontSize:16,color:Colors.white),),
+                padding: const EdgeInsets.only(top: 50.0,left: 25.0,right: 25.0),
+                child: Text("Learn | Improvise | Grow",style: GoogleFonts.montserrat(fontSize:15,color:Colors.white),),
               )
             ],
           ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                  child: FittedBox(fit: BoxFit.scaleDown,child: Image.asset("assets/robot.png",fit: BoxFit.scaleDown,height: 400,width: 350,)),
-
-              ),
-            ),
-          )
+          SizedBox(height: 150),
+          Expanded(child: Image(image: AssetImage("assets/robo_rev.png")))
         ],
       )
     );
