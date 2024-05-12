@@ -8,8 +8,8 @@ Future<bool> registerUserWithApiEndpoint(User userData) async {
     Map<String, dynamic> userJson = userData.toJson();
     print("==="+userData.token+"+++");
     final response = await http.post(
-      Uri.parse(AppConfig.api),
-      body: jsonEncode(userData.toJson()),
+      Uri.parse("https://registration-w4hb.onrender.com/registeration"),
+      body: jsonEncode(userJson),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
