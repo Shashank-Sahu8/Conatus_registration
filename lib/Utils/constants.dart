@@ -9,7 +9,7 @@ List<String>gender=['MALE','FEMALE','OTHER'];
 
 bool isValidEmail(String email) {
 
-  final RegExp emailRegex =RegExp(r'^[a-zA-Z0-9._-]+@akgec\.ac\.in$');
+  final RegExp emailRegex =RegExp(r'^[a-z]+[0-9.]+@akgec\.ac\.in$');
 
   return emailRegex.hasMatch(email);
 }
@@ -17,14 +17,14 @@ bool isValidEmail(String email) {
 
 bool isValidName(String name) {
 
-  final RegExp nameRegex = RegExp(r'^[a-zA-Z ]+$');
+  final RegExp nameRegex = RegExp(r'^[a-zA-Z\s]{3,20}$');
 
   return nameRegex.hasMatch(name);
 }
 
 bool isValidTeam(String team) {
 
-  final RegExp nameRegex = RegExp(r'^[a-zA-Z]{3,20}$');
+  final RegExp nameRegex = RegExp(r'^[a-zA-Z\s]{3,20}$');
 
   return nameRegex.hasMatch(team);
 }
@@ -46,8 +46,3 @@ bool isValidStudentNumber(String studentNumber) {
   return studentNumberRegex.hasMatch(studentNumber);
 }
 
-bool ishackerrank(String hacker)
-{
-  final RegExp hackerRegex=RegExp(r'^[a-z]{0,5}[1-9][0-9]{0,4}$');
-  return hackerRegex.hasMatch(hacker);
-}

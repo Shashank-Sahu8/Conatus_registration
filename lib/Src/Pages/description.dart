@@ -20,6 +20,7 @@ class _main_pageState extends State<main_page> {
     int minutes = difference.inMinutes.remainder(60);
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor:  Color(0xff031148),
 
       body: Stack(
