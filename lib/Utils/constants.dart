@@ -41,7 +41,7 @@ bool isValidPhoneNumber(String phoneNumber) {
 
 bool isValidStudentNumber(String studentNumber) {
 
-  final RegExp studentNumberRegex = RegExp(r'^(\d{7}|\d{8}|(\d{7}|\d{8})[dD])$');
+  final RegExp studentNumberRegex = RegExp(r'^(21|22|23)\d{5,6}(d|D)?$');
 
   return studentNumberRegex.hasMatch(studentNumber);
 }

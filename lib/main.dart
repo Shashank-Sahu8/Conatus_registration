@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:webapp/Src/Registration/Member3/member3.dart';
-import 'Src/Pages/splash_screen.dart';
+import 'package:webapp/Src/Pages/splash_screen.dart';
 import 'model/model1.dart';
 
 

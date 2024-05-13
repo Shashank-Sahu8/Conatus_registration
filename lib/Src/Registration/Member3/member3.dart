@@ -61,7 +61,7 @@ class _Member3State extends State<Member3> {
           (int viewId) => html.IFrameElement()
         ..style.height = '100%'
         ..style.width = '100%'
-        ..src = '/assets/recaptcha.html'
+        ..src = 'https://recaptchafile.s3.amazonaws.com/recaptcha.html'
         ..style.border = 'none',
     );
     html.window.onMessage.listen((msg)   async {
