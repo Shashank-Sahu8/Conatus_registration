@@ -55,6 +55,7 @@ class _Member3State extends State<Member3> {
 
   @override
   void initState() {
+    super.initState();
     ui.platformViewRegistry.registerViewFactory(
       createdViewId,
           (int viewId) => html.IFrameElement()
@@ -63,8 +64,64 @@ class _Member3State extends State<Member3> {
         ..src = '/assets/recaptcha.html'
         ..style.border = 'none',
     );
+    html.window.onMessage.listen((msg)   async {
+      String token = msg.data;
+      lodingvisibilty();
+      toggleContainerVisibility();
+      setState(() {
+        widget.teamdetails.token=token;
+      });
+      if(widget.teamdetails.token!='empty')
+      {
+        String resp=await registerUserWithApiEndpoint(widget.teamdetails);
+        if (resp =="true") {
+          lodingvisibilty();
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => thanks(name: widget.teamdetails.name[0], mail:widget.teamdetails.email[0] )));
+        } else {
+          resp=="already"?
+          showTopSnackBar(
+            Overlay.of(context),
+            SizedBox(
+              height: 40,
+              child: CustomSnackBar.error(
+                message:
+                "User Already registered",
+                backgroundColor: Colors.blueGrey,
+              ),
+            ),
+          ) :showTopSnackBar(
+            Overlay.of(context),
+            SizedBox(
+              height: 40,
+              child: CustomSnackBar.error(
+                message:
+                "Some error occured ${resp}",
+                backgroundColor: Colors.blueGrey,
+              ),
+            ),
+          );
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => main_page()));
+          lodingvisibilty();
+        }
+      }
+      else
+      {
+        showTopSnackBar(
+          Overlay.of(context),
+          SizedBox(
+            height: 40,
+            child: CustomSnackBar.error(
+              message:
+              "Please try again,Internet not conected",
+              backgroundColor: Colors.blueGrey,
+            ),
+          ),
+        );
+      }
 
-    super.initState();
+    });
+
+
   }
 
 
@@ -102,20 +159,17 @@ class _Member3State extends State<Member3> {
 
         Visibility(
           visible: isContainerVisible,
-          child: GestureDetector(
-            onTap: toggleContainerVisibility,
-            child: Container(
-              color: Colors.black.withOpacity(0.2), // Transparent red
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
-              child: Container(height:400,width:300,child: HtmlElementView(viewType: createdViewId)),
-            ),
+          child: Container(
+            color: Colors.black.withOpacity(0.2), // Transparent red
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
+            child: Container(height:400,width:300,child: HtmlElementView(viewType: createdViewId)),
           ),
         ),
       ],
@@ -605,62 +659,7 @@ class _Member3State extends State<Member3> {
                                 widget.teamdetails.branch.add(branchc1);
                                 toggleContainerVisibility();
 
-                                html.window.onMessage.listen((msg)   async {
-                                  String token = msg.data;
-                                  lodingvisibilty();
-                                  toggleContainerVisibility();
-                                  setState(() {
-                                    widget.teamdetails.token=token;
-                                  });
-                                  if(widget.teamdetails.token!='empty')
-                                  {
-                                    String resp=await registerUserWithApiEndpoint(widget.teamdetails);
-                                    if (resp =="true") {
-                                      lodingvisibilty();
-                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => thanks(name: widget.teamdetails.name[0], mail:widget.teamdetails.email[0] )));
-                                    } else {
-                                      resp=="already"?
-                                      showTopSnackBar(
-                                        Overlay.of(context),
-                                        SizedBox(
-                                          height: 40,
-                                          child: CustomSnackBar.error(
-                                            message:
-                                            "User Already registered",
-                                            backgroundColor: Colors.blueGrey,
-                                          ),
-                                        ),
-                                      ) :showTopSnackBar(
-                                        Overlay.of(context),
-                                        SizedBox(
-                                          height: 40,
-                                          child: CustomSnackBar.error(
-                                            message:
-                                            "Some error occured",
-                                            backgroundColor: Colors.blueGrey,
-                                          ),
-                                        ),
-                                      );
-                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => main_page()));
-                                      lodingvisibilty();
-                                    }
-                                  }
-                                  else
-                                  {
-                                    showTopSnackBar(
-                                      Overlay.of(context),
-                                      SizedBox(
-                                        height: 40,
-                                        child: CustomSnackBar.error(
-                                          message:
-                                          "Please try again,Internet not conected",
-                                          backgroundColor: Colors.blueGrey,
-                                        ),
-                                      ),
-                                    );
-                                  }
 
-                                });
                               }
                             },style: ElevatedButton.styleFrom(backgroundColor: Color(0xff031148),shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
                             child: Padding(
@@ -1120,62 +1119,7 @@ class _Member3State extends State<Member3> {
                             widget.teamdetails.currentYear.add(int.parse(yearc1));
                             widget.teamdetails.branch.add(branchc1);
                             toggleContainerVisibility();
-                            html.window.onMessage.listen((msg)   async {
-                              String token = msg.data;
-                              lodingvisibilty();
-                              toggleContainerVisibility();
-                              setState(() {
-                                widget.teamdetails.token=token;
-                              });
-                              if(widget.teamdetails.token!='empty')
-                              {
-                                String resp=await registerUserWithApiEndpoint(widget.teamdetails);
-                                if (resp =="true") {
-                                  lodingvisibilty();
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => thanks(name: widget.teamdetails.name[0], mail:widget.teamdetails.email[0] )));
-                                } else {
-                                  resp=="already"?
-                                  showTopSnackBar(
-                                    Overlay.of(context),
-                                    SizedBox(
-                                      height: 40,
-                                      child: CustomSnackBar.error(
-                                        message:
-                                        "User Already registered",
-                                        backgroundColor: Colors.blueGrey,
-                                      ),
-                                    ),
-                                  ) :showTopSnackBar(
-                                    Overlay.of(context),
-                                    SizedBox(
-                                      height: 40,
-                                      child: CustomSnackBar.error(
-                                        message:
-                                        "Some error occured",
-                                        backgroundColor: Colors.blueGrey,
-                                      ),
-                                    ),
-                                  );
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => main_page()));
-                                  lodingvisibilty();
-                                }
-                              }
-                              else
-                              {
-                                showTopSnackBar(
-                                  Overlay.of(context),
-                                  SizedBox(
-                                    height: 40,
-                                    child: CustomSnackBar.error(
-                                      message:
-                                      "Please try again,Internet not conected",
-                                      backgroundColor: Colors.blueGrey,
-                                    ),
-                                  ),
-                                );
-                              }
 
-                            });
                           }
                           else
                             {

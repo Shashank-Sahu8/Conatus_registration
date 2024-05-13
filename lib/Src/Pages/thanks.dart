@@ -39,7 +39,7 @@ class _thanksState extends State<thanks> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(40.0),
+              padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width>800?60:40.0,right: 40,top: 40,bottom: 40),
               child: Column(mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
